@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendeeResource;
 use App\Models\Attendee;
 use App\Models\Event;
-use Illuminate\Http\Request;
 
 class AttendeeController extends Controller
 {

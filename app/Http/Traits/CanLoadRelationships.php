@@ -2,23 +2,24 @@
 
 namespace App\Http\Traits;
 
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
 
 trait CanLoadRelationships
 {
     public function loadRelationships(
-        Model|EloquentBuilder|QueryBuilder $query,
+        Model|EloquentBuilder|QueryBuilder|HasMany $query,
         ?array $relations = null
-    ): Model|EloquentBuilder|QueryBuilder
+    ): Model|EloquentBuilder|QueryBuilder|HasMany
     {
-        $relations = $relations ?? $this->relations ?? [];
+        $relations = $relations ?? static::RELATIONS ?? [];
 
         foreach ($relations as $relation) {
             $query->when(
                 $this->shouldIncludeRelation($relation),
-                fn($q) => $query instanceof Model ? $for->load($relation) : $q->with($relation)
+                fn($q) => $query instanceof Model ? $query->load($relation) : $q->with($relation)
             );
         }
 

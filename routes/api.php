@@ -16,3 +16,4 @@ Route::apiResource('events.attendees', AttendeeController::class)
     ->scoped()->except('update');
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');

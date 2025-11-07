@@ -23,7 +23,19 @@ class AttendeeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/events/{event}/attendees",
+     *     summary="List attendees for an event",
+     *     tags={"Attendees"},
+     *     @OA\Parameter(
+     *         name="event",
+     *         in="path",
+     *         required=true,
+     *         description="Event ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="List of attendees")
+     * )
      */
     public function index(Event $event)
     {
@@ -37,7 +49,19 @@ class AttendeeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/events/{event}/attendees",
+     *     summary="Register a user as an attendee for the event",
+     *     tags={"Attendees"},
+     *     @OA\Parameter(
+     *         name="event",
+     *         in="path",
+     *         required=true,
+     *         description="Event ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=201, description="Attendee created")
+     * )
      */
     public function store(Request $request, Event $event)
     {
@@ -51,7 +75,26 @@ class AttendeeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/events/{event}/attendees/{attendee}",
+     *     summary="Get a specific attendee",
+     *     tags={"Attendees"},
+     *     @OA\Parameter(
+     *         name="event",
+     *         in="path",
+     *         required=true,
+     *         description="Event ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="attendee",
+     *         in="path",
+     *         required=true,
+     *         description="Attendee ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Attendee details")
+     * )
      */
     public function show(Event $event, Attendee $attendee)
     {
@@ -61,7 +104,26 @@ class AttendeeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/events/{event}/attendees/{attendee}",
+     *     summary="Remove an attendee from an event",
+     *     tags={"Attendees"},
+     *     @OA\Parameter(
+     *         name="event",
+     *         in="path",
+     *         required=true,
+     *         description="Event ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="attendee",
+     *         in="path",
+     *         required=true,
+     *         description="Attendee ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=204, description="Attendee removed")
+     * )
      */
     public function destroy(Event $event, Attendee $attendee)
     {

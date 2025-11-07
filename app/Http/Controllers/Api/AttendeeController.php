@@ -7,6 +7,7 @@ use App\Http\Resources\AttendeeResource;
 use App\Http\Traits\CanLoadRelationships;
 use App\Models\Attendee;
 use App\Models\Event;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class AttendeeController extends Controller
@@ -38,11 +39,11 @@ class AttendeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Event $event)
+    public function store(Request $request, Event $event)
     {
         $attendee = $this->loadRelationships(
             $event->attendees()->create([
-                'user_id' => 1,
+                'user_id' => $request->user()->id,
             ])
         );
 
